@@ -41,8 +41,15 @@ class QuizUi():
     
     def next_question(self):
         self.canvas.config(bg="white")
-        q_text= self.quiz.next_question()
-        self.canvas.itemconfig(self.question_text, text=q_text)
+        if self.quiz.still_has_questions():
+            
+            self.score_label.config(text=f"Score:{self.quiz.score}")
+            q_text= self.quiz.next_question()
+            self.canvas.itemconfig(self.question_text, text=q_text)
+        else:
+            self.canvas.itemconfig(self.question_text, text="You have reached the end of the quiz")
+            self.true.config(state="disabled")
+            self.false.config(state="disabled")
         
 
     def true_ans(self):
